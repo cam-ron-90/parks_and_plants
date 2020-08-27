@@ -1,14 +1,44 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @garden.name %>
-</p>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= @garden.banner_url %>');">
+  <div class="container">
+    <h1><%= @garden.name %><h1>
+    <a class="btn btn-primary" href="#">i'm a button</a>
+  </div>
+</div>
 
-<p>
-  <strong>Banner url:</strong>
-  <%= @garden.banner_url %>
-</p>
+<br>
 
-<%= link_to 'Edit', edit_garden_path(@garden) %> |
-<%= link_to 'Back', gardens_path %>
+<div class="container">
+
+  <%= link_to 'Edit', edit_garden_path(@garden) %> |
+  <%= link_to 'Back', gardens_path %>
+
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <div class="cards-form-grid">
+    <div class="cards">
+      <% @garden.plants.each do |plant| %>
+        <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= plant.image_url %>')">
+          <div class="card-text">
+            <h4><%= plant.name %></h4>
+            <p><%= link_to "POISON!!!!",  plant_path(plant), method: :delete %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <%= simple_form_for [@garden, @plant] do |f| %>
+    <%= f.input :name, placeholder: "cactus" %>
+    <%= f.input :image_url, placeholder: "image" %>
+    <%= f.submit "ADD", class: 'btn btn-dark' %>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
+
