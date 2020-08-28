@@ -3,8 +3,12 @@ class PlantsController < ApplicationController
     @plant = Plant.new(plant_params)
     @garden = Garden.find(params[:garden_id])
     @plant.garden = @garden
-    @plant.save
-    redirect_to garden_path(@garden)
+    if @plant.save
+      redirect_to garden_path(@garden)
+    else
+      # render 'gardens/show.html.erb' showing wrong input if plant doesn't save
+      render 'gardens/show'
+    end
   end
 
   def destroy
